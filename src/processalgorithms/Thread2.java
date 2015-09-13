@@ -45,6 +45,7 @@ public class Thread2 extends Thread {
                        dekker5();
                        break;
                    case 6:
+                       peterson();
                        break;
                    default:
                        break;
@@ -123,6 +124,18 @@ public class Thread2 extends Thread {
         Main.gui.setTurno(1);
         Main.gui.setP2qe(false);
         hacerCosas("mas", 3);
+    }
+    
+    private void peterson(){
+        while(true){
+            hacerCosas("", 3);
+            Main.gui.setP2qe(true);
+            Main.gui.setTurno(1);
+            while(Main.gui.getP1qe() && Main.gui.getTurno() == 1){ esperar(); }
+            regionCritica(3);
+            Main.gui.setP2qe(false);
+            hacerCosas("mas", 3);
+        }
     }
     
     private void hacerCosas(String s, int time){
