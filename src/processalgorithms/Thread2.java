@@ -78,13 +78,13 @@ public class Thread2 extends Thread {
     }
     
     private void dekker3(){
-        hacerCosas("", 2);
-        Main.gui.setTurno(2);
-        while(Main.gui.getTurno() == 1){
+        hacerCosas("", 3);
+        while(Main.gui.getP1qe()){
             esperar();
         }
-        regionCritica(3);
-        Main.gui.setTurno(1);
+        Main.gui.setP2qe(true);
+        regionCritica(4);
+        Main.gui.setP2qe(false);
         hacerCosas("mas", 2);
     }
     
