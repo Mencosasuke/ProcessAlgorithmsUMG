@@ -42,6 +42,7 @@ public class Thread2 extends Thread {
                        dekker4();
                        break;
                    case 5:
+                       dekker5();
                        break;
                    case 6:
                        break;
@@ -101,6 +102,25 @@ public class Thread2 extends Thread {
             Main.gui.setP2qe(true);
         }
         regionCritica(4);
+        Main.gui.setP2qe(false);
+        hacerCosas("mas", 3);
+    }
+    
+    private void dekker5(){
+        hacerCosas("", 3);
+        Main.gui.setP2qe(true);
+        while(Main.gui.getP1qe()){
+            if(Main.gui.getTurno() == 1){
+                Main.gui.setP2qe(false);
+                try{
+                    esperar();
+                    sleep(((int)((Math.random() * 3) + 2)) * 1000);
+                }catch(InterruptedException e){}
+                Main.gui.setP2qe(true);
+            }
+        }
+        regionCritica(4);
+        Main.gui.setTurno(1);
         Main.gui.setP2qe(false);
         hacerCosas("mas", 3);
     }
