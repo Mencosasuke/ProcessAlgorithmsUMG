@@ -33,6 +33,7 @@ public class Thread2 extends Thread {
                        dekker1();
                        break;
                    case 2:
+                       dekker2();
                        break;
                    case 3:
                        break;
@@ -51,28 +52,49 @@ public class Thread2 extends Thread {
     }
     
     private void dekker1(){
-        try{
             // Hace cosas
-            Main.gui.setVisibleProgressBarP2("hide");
-            Main.gui.updateStatusP2("Haciendo cosas...");
-            sleep((int)((Math.random() * 3) + 2) * 1000);
+            hacerCosas("");
             // Espera a que la región crítica se desocupe
             while (Main.gui.getTurno() == 2) {
-                Main.gui.updateStatusP2("Esperando");
-                Main.gui.setOperationProgressBarP2("wait");
-                Main.gui.setVisibleProgressBarP2("show");
+                esperar();
             }
             // Accede a Región Crítica
+            regionCritica();
+            // Hace mas cosas
+            hacerCosas("mas");
+            Main.gui.setTurno(2);
+    }
+    
+    private void dekker2(){
+        hacerCosas("");
+        while(Main.gui.getTurno() == 1){
+            esperar();
+        }
+        Main.gui.setTurno(2);
+        regionCritica();
+        Main.gui.setTurno(1);
+        hacerCosas("mas");
+    }
+    
+    private void hacerCosas(String s){
+        Main.gui.setVisibleProgressBarP2("show");
+        Main.gui.updateStatusP2("Haciendo " + s + " cosas...");
+        Main.gui.setOperationProgressBarP2("working");
+    }
+    
+    private void regionCritica(){
+        try{
             Main.gui.setVisibleProgressBarP2("show");
             Main.gui.setOperationProgressBarP2("bussy");
             Main.gui.updateStatusP2("Usando región crítica...");
-            sleep((int)((Math.random() * 3) + 2) * 1000);
-            // Hace mas cosas
-            Main.gui.setVisibleProgressBarP2("hide");
-            Main.gui.updateStatusP2("Haciendo mas cosas...");
-            sleep((int)((Math.random() * 3) + 2) * 1000);
-            Main.gui.setTurno(2);
+            sleep((int)((Math.random() * 2) + 2) * 1000);
         }catch(InterruptedException e){}
+    }
+    
+    private void esperar(){
+        Main.gui.updateStatusP2("Esperando");
+        Main.gui.setOperationProgressBarP2("wait");
+        Main.gui.setVisibleProgressBarP2("show");
     }
     
 }

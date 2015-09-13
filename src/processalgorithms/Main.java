@@ -7,6 +7,7 @@
 package processalgorithms;
 
 import java.awt.Color;
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -23,6 +24,9 @@ public class Main extends javax.swing.JFrame {
     
     // Variable booleana que indica si uno de los algoritmos se ejecuta o se detiene
     public static boolean eventFlag;
+    
+    // Variable que indica cuanto tiempo debe procesarse la barra
+    int tiempoEspera = 0;
     
     public static boolean getEventFlag() {
         return eventFlag;
@@ -95,6 +99,19 @@ public class Main extends javax.swing.JFrame {
                 pbProceso1.setBackground(Color.decode("#DE6C69"));
                 pbProceso1.setForeground(Color.decode("#D9534F"));
                 break;
+            case "working":
+                tiempoEspera = ((int)((Math.random() * 2) + 2));
+                pbProceso1.setIndeterminate(false);
+                pbProceso1.setBackground(Color.decode("#74C274"));
+                pbProceso1.setForeground(Color.decode("#3E9A3E"));
+                pbProceso1.setMinimum(1);
+                pbProceso1.setMaximum(tiempoEspera);
+                for(int i = 1; i <= tiempoEspera; i++){
+                    pbProceso1.setValue(i);
+                    try{
+                        sleep(i * 1000);
+                    }catch(InterruptedException e){}
+                }
         }
     }
     
@@ -110,6 +127,20 @@ public class Main extends javax.swing.JFrame {
                 pbProceso2.setBackground(Color.decode("#DE6C69"));
                 pbProceso2.setForeground(Color.decode("#D9534F"));
                 break;
+            case "working":
+                tiempoEspera = ((int)((Math.random() * 2) + 2));
+                pbProceso2.setIndeterminate(false);
+                pbProceso2.setBackground(Color.decode("#74C274"));
+                pbProceso2.setForeground(Color.decode("#3E9A3E"));
+                pbProceso2.setMinimum(0);
+                pbProceso2.setMaximum(tiempoEspera);
+                for(int i = 1; i <= tiempoEspera; i++){
+                    pbProceso2.setValue(i);
+                    pbProceso2.repaint();
+                    try{
+                        sleep(i * 1000);
+                    }catch(InterruptedException e){}
+                }
         }
     }
     
@@ -337,18 +368,38 @@ public class Main extends javax.swing.JFrame {
 
     private void btnDekker2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDekker2ActionPerformed
         // TODO add your handling code here:
+        calcTurno();
+        hilo1.start();
+        hilo1.Dekker(2);
+        hilo2.start();
+        hilo2.Dekker(2);
     }//GEN-LAST:event_btnDekker2ActionPerformed
 
     private void btnDekker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDekker3ActionPerformed
         // TODO add your handling code here:
+        calcTurno();
+        hilo1.start();
+        hilo1.Dekker(3);
+        hilo2.start();
+        hilo2.Dekker(3);
     }//GEN-LAST:event_btnDekker3ActionPerformed
 
     private void btnDekker4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDekker4ActionPerformed
         // TODO add your handling code here:
+        calcTurno();
+        hilo1.start();
+        hilo1.Dekker(4);
+        hilo2.start();
+        hilo2.Dekker(4);
     }//GEN-LAST:event_btnDekker4ActionPerformed
 
     private void btnDekker5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDekker5ActionPerformed
         // TODO add your handling code here:
+        calcTurno();
+        hilo1.start();
+        hilo1.Dekker(5);
+        hilo2.start();
+        hilo2.Dekker(5);
     }//GEN-LAST:event_btnDekker5ActionPerformed
 
     private void btnPetersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPetersonActionPerformed
