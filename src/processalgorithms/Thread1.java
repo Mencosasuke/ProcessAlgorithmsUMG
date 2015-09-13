@@ -36,6 +36,7 @@ public class Thread1 extends Thread{
                        dekker2();
                        break;
                    case 3:
+                       dekker3();
                        break;
                    case 4:
                        break;
@@ -53,41 +54,56 @@ public class Thread1 extends Thread{
     
     private void dekker1(){
             // Hace cosas
-            hacerCosas("");
+            hacerCosas("", 2);
             // Espera a que la región crítica se desocupe
             while (Main.gui.getTurno() == 1) {
                 esperar();
             }
             // Accede a Región Crítica
-            regionCritica();
+            regionCritica(3);
             // Hace mas cosas
-            hacerCosas("mas");
+            hacerCosas("mas", 3);
             Main.gui.setTurno(1);
     }
     
     private void dekker2(){
-        hacerCosas("");
+        hacerCosas("", 2);
+        Main.gui.setP1qe(true);
+        while(Main.gui.getP2qe()){
+            esperar();
+        }
+        regionCritica(3);
+        Main.gui.setP1qe(false);
+        hacerCosas("mas", 2);
+    }
+    
+    private void dekker3(){
+        hacerCosas("", 2);
+        Main.gui.setTurno(1);
         while(Main.gui.getTurno() == 2){
             esperar();
         }
-        Main.gui.setTurno(1);
-        regionCritica();
+        regionCritica(2);
         Main.gui.setTurno(2);
-        hacerCosas("mas");
+        hacerCosas("mas", 3);
     }
     
-    private void hacerCosas(String s){
-        Main.gui.setVisibleProgressBarP1("show");
-        Main.gui.updateStatusP1("Haciendo " + s + " cosas...");
-        Main.gui.setOperationProgressBarP1("working");
+    private void hacerCosas(String s, int time){
+        try{
+            Main.gui.setVisibleProgressBarP1("show");
+            Main.gui.updateStatusP1("Haciendo " + s + " cosas...");
+            Main.gui.setOperationProgressBarP1("working");
+            sleep(time * 1000);
+        }catch(InterruptedException e){}
     }
     
-    private void regionCritica(){
+    private void regionCritica(int time){
         try{
             Main.gui.setVisibleProgressBarP1("show");
             Main.gui.setOperationProgressBarP1("bussy");
             Main.gui.updateStatusP1("Usando región crítica...");
-            sleep((int)((Math.random() * 2) + 2) * 1000);
+            //sleep((int)((Math.random() * 2) + 2) * 1000);
+            sleep(time * 1000);
         }catch(InterruptedException e){}
     }
     

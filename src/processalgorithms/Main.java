@@ -25,8 +25,8 @@ public class Main extends javax.swing.JFrame {
     // Variable booleana que indica si uno de los algoritmos se ejecuta o se detiene
     public static boolean eventFlag;
     
-    // Variable que indica cuanto tiempo debe procesarse la barra
-    int tiempoEspera = 0;
+//    // Variable que indica cuanto tiempo debe procesarse la barra
+//    int tiempoEspera = 0;
     
     public static boolean getEventFlag() {
         return eventFlag;
@@ -52,11 +52,27 @@ public class Main extends javax.swing.JFrame {
         setTurno(val);
     }
     
-    
-    public void updateLable(String s){
-        jLabel1.setText(s);
+    // Variables booleanas de turno de procesos
+    public static boolean p1qe;
+
+    public static boolean getP1qe() {
+        return p1qe;
+    }
+
+    public static void setP1qe(boolean p1qe) {
+        Main.p1qe = p1qe;
     }
     
+    public static boolean p2qe;
+
+    public static boolean getP2qe() {
+        return p2qe;
+    }
+
+    public static void setP2qe(boolean p2qe) {
+        Main.p2qe = p2qe;
+    }
+  
     public void updateStatusP1(String s){
         lblStatusP1.setText(s);
     }
@@ -100,18 +116,17 @@ public class Main extends javax.swing.JFrame {
                 pbProceso1.setForeground(Color.decode("#D9534F"));
                 break;
             case "working":
-                tiempoEspera = ((int)((Math.random() * 2) + 2));
-                pbProceso1.setIndeterminate(false);
+                pbProceso1.setIndeterminate(true);
                 pbProceso1.setBackground(Color.decode("#74C274"));
                 pbProceso1.setForeground(Color.decode("#3E9A3E"));
-                pbProceso1.setMinimum(1);
-                pbProceso1.setMaximum(tiempoEspera);
-                for(int i = 1; i <= tiempoEspera; i++){
-                    pbProceso1.setValue(i);
-                    try{
-                        sleep(i * 1000);
-                    }catch(InterruptedException e){}
-                }
+//                pbProceso1.setMinimum(1);
+//                pbProceso1.setMaximum(tiempoEspera);
+//                for(int i = 1; i <= tiempoEspera; i++){
+//                    pbProceso1.setValue(i);
+//                    try{
+//                        sleep(i * 1000);
+//                    }catch(InterruptedException e){}
+//                }
         }
     }
     
@@ -128,19 +143,17 @@ public class Main extends javax.swing.JFrame {
                 pbProceso2.setForeground(Color.decode("#D9534F"));
                 break;
             case "working":
-                tiempoEspera = ((int)((Math.random() * 2) + 2));
-                pbProceso2.setIndeterminate(false);
+                pbProceso2.setIndeterminate(true);
                 pbProceso2.setBackground(Color.decode("#74C274"));
                 pbProceso2.setForeground(Color.decode("#3E9A3E"));
-                pbProceso2.setMinimum(0);
-                pbProceso2.setMaximum(tiempoEspera);
-                for(int i = 1; i <= tiempoEspera; i++){
-                    pbProceso2.setValue(i);
-                    pbProceso2.repaint();
-                    try{
-                        sleep(i * 1000);
-                    }catch(InterruptedException e){}
-                }
+//                pbProceso2.setMinimum(0);
+//                pbProceso2.setMaximum(tiempoEspera);
+//                for(int i = 1; i <= tiempoEspera; i++){
+//                    pbProceso2.setValue(i);
+//                    try{
+//                        sleep(time * 1000);
+//                    }catch(InterruptedException e){}
+//                }
         }
     }
     
@@ -176,7 +189,6 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnDekker1 = new javax.swing.JButton();
         btnDekker2 = new javax.swing.JButton();
@@ -194,8 +206,6 @@ public class Main extends javax.swing.JFrame {
         lblStatusP2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("jLabel1");
 
         jButton1.setText("Terminar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -271,9 +281,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(196, 196, 196)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(240, 240, 240)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -340,9 +348,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(lblStatusP1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStatusP2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -368,7 +374,8 @@ public class Main extends javax.swing.JFrame {
 
     private void btnDekker2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDekker2ActionPerformed
         // TODO add your handling code here:
-        calcTurno();
+        setP1qe(false);
+        setP2qe(false);
         hilo1.start();
         hilo1.Dekker(2);
         hilo2.start();
@@ -449,7 +456,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnDekker5;
     private javax.swing.JButton btnPeterson;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
