@@ -394,7 +394,8 @@ public class Main extends javax.swing.JFrame {
 
     private void btnDekker4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDekker4ActionPerformed
         // TODO add your handling code here:
-        calcTurno();
+        setP1qe(false);
+        setP2qe(false);
         hilo1.start();
         hilo1.Dekker(4);
         hilo2.start();
